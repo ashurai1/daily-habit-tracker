@@ -52,7 +52,7 @@ A beautiful, feature-rich web application for tracking daily habits with analyti
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/yourusername/daily-habit-tracker.git
+   git clone https://github.com/ashurai1/daily-habit-tracker.git
    cd daily-habit-tracker
    ```
 
