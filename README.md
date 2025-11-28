@@ -249,8 +249,8 @@ SOFTWARE.
 
 **Ashwani Rai**
 
-- GitHub: [@yourusername](https://github.com/yourusername)
-- Email: your.email@example.com
+- GitHub: [@ashurai1](https://github.com/ashurai1)
+- Email: raiashwani151104@gmail.com
 
 ## 🙏 Acknowledgments
 
@@ -263,7 +263,7 @@ SOFTWARE.
 
 If you found this project helpful, please give it a ⭐️!
 
-For bugs and feature requests, please [open an issue](https://github.com/yourusername/daily-habit-tracker/issues).
+For bugs and feature requests, please [open an issue](https://github.com/ashurai1/daily-habit-tracker/issues).
 
 ## 🗺️ Roadmap
 
