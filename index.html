@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Daily Habit Tracker - Track your daily habits, build streaks, and achieve your goals with beautiful analytics">
+    <title>Daily Habit Tracker - Build Better Habits</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar" role="navigation" aria-label="Main navigation">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <span class="logo">✨</span>
+                <span class="brand-text">HabitFlow</span>
+            </div>
+            
+            <button class="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            
+            <ul class="nav-menu" role="menubar">
+                <li role="none"><a href="#home" class="nav-link active" role="menuitem" data-section="home">
+                    <span class="nav-icon">🏠</span>
+                    <span>Home</span>
+                </a></li>
+                <li role="none"><a href="#add-habit" class="nav-link" role="menuitem" data-section="add-habit">
+                    <span class="nav-icon">➕</span>
+                    <span>Add Habit</span>
+                </a></li>
+                <li role="none"><a href="#analytics" class="nav-link" role="menuitem" data-section="analytics">
+                    <span class="nav-icon">📊</span>
+                    <span>Analytics</span>
+                </a></li>
+                <li role="none"><a href="#calendar" class="nav-link" role="menuitem" data-section="calendar">
+                    <span class="nav-icon">📅</span>
+                    <span>Calendar</span>
+                </a></li>
+                <li role="none"><a href="#settings" class="nav-link" role="menuitem" data-section="settings">
+                    <span class="nav-icon">⚙️</span>
+                    <span>Settings</span>
+                </a></li>
+            </ul>
+            
+            <button class="theme-toggle" aria-label="Toggle dark mode" title="Toggle theme">
+                <span class="theme-icon sun">☀️</span>
+                <span class="theme-icon moon">🌙</span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Home Section -->
+        <section id="home" class="section active" aria-labelledby="home-heading">
+            <div class="container">
+                <div class="greeting-container">
+                    <h1 id="home-heading" class="greeting"></h1>
+                    <p class="current-date"></p>
+                </div>
+
+                <!-- Summary Cards -->
+                <div class="summary-grid">
+                    <div class="summary-card" data-animate="fade-in">
+                        <div class="card-icon">📋</div>
+                        <div class="card-content">
+                            <h3>Total Habits</h3>
+                            <p class="card-value" id="total-habits">0</p>
+                        </div>
+                    </div>
+                    
+                    <div class="summary-card" data-animate="fade-in">
+                        <div class="card-icon">✅</div>
+                        <div class="card-content">
+                            <h3>Completed</h3>
+                            <p class="card-value" id="completed-habits">0</p>
+                        </div>
+                    </div>
+                    
+                    <div class="summary-card" data-animate="fade-in">
+                        <div class="card-icon">🔥</div>
+                        <div class="card-content">
+                            <h3>Best Streak</h3>
+                            <p class="card-value" id="best-streak">0</p>
+                        </div>
+                    </div>
+                    
+                    <div class="summary-card" data-animate="fade-in">
+                        <div class="card-icon">⭐</div>
+                        <div class="card-content">
+                            <h3>Today's Score</h3>
+                            <p class="card-value" id="today-score">0</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Progress Circle -->
+                <div class="progress-section">
+                    <div class="progress-circle-container">
+                        <svg class="progress-ring" width="200" height="200">
+                            <circle class="progress-ring-bg" cx="100" cy="100" r="90" />
+                            <circle class="progress-ring-fill" cx="100" cy="100" r="90" />
+                        </svg>
+                        <div class="progress-text">
+                            <span class="progress-percentage">0%</span>
+                            <span class="progress-label">Complete</span>
+                        </div>
+                    </div>
+                    <div class="progress-stats">
+                        <div class="stat-item">
+                            <span class="stat-label">Weekly Average</span>
+                            <span class="stat-value" id="weekly-average">0%</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Pending</span>
+                            <span class="stat-value" id="pending-habits">0</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Habits List -->
+                <div class="habits-section">
+                    <div class="section-header">
+                        <h2>Today's Habits</h2>
+                        <button class="btn btn-secondary" id="clear-demo-btn" style="display: none;">
+                            Clear Demo Data
+                        </button>
+                    </div>
+                    
+                    <div id="habits-list" class="habits-list">
+                        <!-- Habits will be rendered here by JavaScript -->
+                    </div>
+                    
+                    <div id="empty-state" class="empty-state" style="display: none;">
+                        <div class="empty-icon">📝</div>
+                        <h3>No habits yet</h3>
+                        <p>Start building better habits by adding your first one!</p>
+                        <a href="#add-habit" class="btn btn-primary">Add Your First Habit</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Add Habit Section -->
+        <section id="add-habit" class="section" aria-labelledby="add-habit-heading">
+            <div class="container">
+                <h1 id="add-habit-heading">Add New Habit</h1>
+                <p class="section-description">Create a new habit to track daily</p>
+
+                <div class="form-container">
+                    <form id="add-habit-form" class="habit-form">
+                        <div class="form-group">
+                            <label for="habit-name">Habit Name <span class="required">*</span></label>
+                            <input 
+                                type="text" 
+                                id="habit-name" 
+                                name="habitName" 
+                                placeholder="e.g., Drink 2L water"
+                                required
+                                aria-required="true"
+                                maxlength="50"
+                            >
+                            <span class="char-count">0/50</span>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="habit-category">Category</label>
+                                <select id="habit-category" name="category">
+                                    <option value="Health">🏃 Health</option>
+                                    <option value="Study">📚 Study</option>
+                                    <option value="Work">💼 Work</option>
+                                    <option value="Personal">🌟 Personal</option>
+                                    <option value="Fitness">💪 Fitness</option>
+                                    <option value="Mindfulness">🧘 Mindfulness</option>
+                                    <option value="Other">📌 Other</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="habit-difficulty">Difficulty</label>
+                                <select id="habit-difficulty" name="difficulty">
+                                    <option value="Easy">😊 Easy</option>
+                                    <option value="Medium">😐 Medium</option>
+                                    <option value="Hard">😤 Hard</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="habit-marks">Points per Completion</label>
+                            <input 
+                                type="number" 
+                                id="habit-marks" 
+                                name="marks" 
+                                min="1" 
+                                max="100" 
+                                value="5"
+                                aria-describedby="marks-help"
+                            >
+                            <small id="marks-help" class="form-help">Earn these points each time you complete this habit</small>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary btn-large">
+                                <span>Create Habit</span>
+                                <span class="btn-icon">✨</span>
+                            </button>
+                            <button type="reset" class="btn btn-secondary">Clear Form</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- Analytics Section -->
+        <section id="analytics" class="section" aria-labelledby="analytics-heading">
+            <div class="container">
+                <h1 id="analytics-heading">Analytics & Insights</h1>
+                <p class="section-description">Track your progress over time</p>
+
+                <!-- Filter Options -->
+                <div class="analytics-filters">
+                    <button class="filter-btn active" data-filter="7">Last 7 Days</button>
+                    <button class="filter-btn" data-filter="30">Last 30 Days</button>
+                    <button class="filter-btn" data-filter="90">Last 90 Days</button>
+                </div>
+
+                <!-- Analytics Summary -->
+                <div class="analytics-summary">
+                    <div class="analytics-card">
+                        <h3>Total Score</h3>
+                        <p class="analytics-value" id="analytics-total-score">0</p>
+                    </div>
+                    <div class="analytics-card">
+                        <h3>Average Daily Score</h3>
+                        <p class="analytics-value" id="analytics-avg-score">0</p>
+                    </div>
+                    <div class="analytics-card">
+                        <h3>Completion Rate</h3>
+                        <p class="analytics-value" id="analytics-completion-rate">0%</p>
+                    </div>
+                    <div class="analytics-card">
+                        <h3>Active Habits</h3>
+                        <p class="analytics-value" id="analytics-active-habits">0</p>
+                    </div>
+                </div>
+
+                <!-- Charts -->
+                <div class="charts-grid">
+                    <div class="chart-container">
+                        <h3>Daily Score Trend</h3>
+                        <canvas id="bar-chart" aria-label="Bar chart showing daily scores"></canvas>
+                    </div>
+                    
+                    <div class="chart-container">
+                        <h3>Completion Percentage</h3>
+                        <canvas id="line-chart" aria-label="Line chart showing completion percentage over time"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Calendar Section -->
+        <section id="calendar" class="section" aria-labelledby="calendar-heading">
+            <div class="container">
+                <h1 id="calendar-heading">Calendar View</h1>
+                <p class="section-description">See your completion history at a glance</p>
+
+                <div class="calendar-container">
+                    <div class="calendar-header">
+                        <button class="calendar-nav" id="prev-month" aria-label="Previous month">
+                            <span>←</span>
+                        </button>
+                        <h2 id="calendar-month-year"></h2>
+                        <button class="calendar-nav" id="next-month" aria-label="Next month">
+                            <span>→</span>
+                        </button>
+                    </div>
+
+                    <div class="calendar-legend">
+                        <div class="legend-item">
+                            <span class="legend-color" style="background: var(--color-success-light);"></span>
+                            <span>100% Complete</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="legend-color" style="background: var(--color-warning);"></span>
+                            <span>50-99% Complete</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="legend-color" style="background: var(--color-error-light);"></span>
+                            <span>1-49% Complete</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="legend-color" style="background: var(--color-surface);"></span>
+                            <span>No Data</span>
+                        </div>
+                    </div>
+
+                    <div class="calendar-grid" id="calendar-grid">
+                        <!-- Calendar will be rendered here by JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Settings Section -->
+        <section id="settings" class="section" aria-labelledby="settings-heading">
+            <div class="container">
+                <h1 id="settings-heading">Settings</h1>
+                <p class="section-description">Customize your experience</p>
+
+                <div class="settings-grid">
+                    <!-- Theme Settings -->
+                    <div class="settings-card">
+                        <div class="settings-header">
+                            <h3>🎨 Appearance</h3>
+                        </div>
+                        <div class="settings-content">
+                            <div class="setting-item">
+                                <div class="setting-info">
+                                    <label for="theme-toggle-setting">Dark Mode</label>
+                                    <p>Switch between light and dark theme</p>
+                                </div>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="theme-toggle-setting" aria-label="Toggle dark mode">
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+
+                            <div class="setting-item">
+                                <div class="setting-info">
+                                    <label for="animations-toggle">Animations</label>
+                                    <p>Enable or disable animations</p>
+                                </div>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="animations-toggle" checked aria-label="Toggle animations">
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Data Management -->
+                    <div class="settings-card">
+                        <div class="settings-header">
+                            <h3>💾 Data Management</h3>
+                        </div>
+                        <div class="settings-content">
+                            <button class="btn btn-secondary btn-block" id="export-data-btn">
+                                <span>📥 Export Data</span>
+                            </button>
+                            <button class="btn btn-secondary btn-block" id="import-data-btn">
+                                <span>📤 Import Data</span>
+                            </button>
+                            <input type="file" id="import-file-input" accept=".json" style="display: none;" aria-label="Import data file">
+                            <button class="btn btn-danger btn-block" id="reset-data-btn">
+                                <span>🗑️ Reset All Data</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- About -->
+                    <div class="settings-card">
+                        <div class="settings-header">
+                            <h3>ℹ️ About</h3>
+                        </div>
+                        <div class="settings-content">
+                            <p><strong>HabitFlow</strong> - Daily Habit Tracker</p>
+                            <p>Version 1.0.0</p>
+                            <p>Track your habits, build streaks, and achieve your goals with beautiful analytics.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Ashwani Rai. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Modals -->
+    <!-- Edit Habit Modal -->
+    <div id="edit-modal" class="modal" role="dialog" aria-labelledby="edit-modal-title" aria-modal="true">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="edit-modal-title">Edit Habit</h2>
+                <button class="modal-close" aria-label="Close modal">&times;</button>
+            </div>
+            <form id="edit-habit-form">
+                <div class="modal-body">
+                    <input type="hidden" id="edit-habit-id">
+                    
+                    <div class="form-group">
+                        <label for="edit-habit-name">Habit Name</label>
+                        <input type="text" id="edit-habit-name" required maxlength="50">
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="edit-habit-category">Category</label>
+                            <select id="edit-habit-category">
+                                <option value="Health">🏃 Health</option>
+                                <option value="Study">📚 Study</option>
+                                <option value="Work">💼 Work</option>
+                                <option value="Personal">🌟 Personal</option>
+                                <option value="Fitness">💪 Fitness</option>
+                                <option value="Mindfulness">🧘 Mindfulness</option>
+                                <option value="Other">📌 Other</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="edit-habit-difficulty">Difficulty</label>
+                            <select id="edit-habit-difficulty">
+                                <option value="Easy">😊 Easy</option>
+                                <option value="Medium">😐 Medium</option>
+                                <option value="Hard">😤 Hard</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="edit-habit-marks">Points per Completion</label>
+                        <input type="number" id="edit-habit-marks" min="1" max="100">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary modal-cancel">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Confirmation Modal -->
+    <div id="confirm-modal" class="modal" role="dialog" aria-labelledby="confirm-modal-title" aria-modal="true">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="confirm-modal-title">Confirm Action</h2>
+                <button class="modal-close" aria-label="Close modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p id="confirm-message"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary modal-cancel">Cancel</button>
+                <button type="button" class="btn btn-danger" id="confirm-action">Confirm</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Message Modal -->
+    <div id="message-modal" class="modal" role="dialog" aria-labelledby="message-modal-title" aria-modal="true">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="message-modal-title">Success!</h2>
+                <button class="modal-close" aria-label="Close modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p id="message-text"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary modal-close">OK</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Confetti Canvas -->
+    <canvas id="confetti-canvas" aria-hidden="true"></canvas>
+
+    <!-- JavaScript -->
+    <script src="script.js"></script>
+</body>
+</html>
