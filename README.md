@@ -1,3 +1,6 @@
+[![Typing SVG](https://readme-typing-svg.herokuapp.com?size=22&duration=3000&color=FFFFFF&background=000000&center=true&vCenter=true&lines=🚀+Live+on+Vercel;Click+to+Open+Website)](https://daily-habit-tracker-kappa.vercel.app/)
+
+
 # 🌟 Daily Habit Tracker
 
 A beautiful, feature-rich web application for tracking daily habits with analytics, streaks, and celebrations. Built with vanilla HTML, CSS, and JavaScript featuring a premium glassmorphism design and smooth animations.
